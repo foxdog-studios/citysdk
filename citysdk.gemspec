@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -10,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.version       = CitySDK::VERSION
   spec.authors       = ['Lloyd Henning']
   spec.email         = ['lloyd.w.henning@gmail.com']
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{CitySDK core functionality}
+  spec.summary       = %q{CitySDK core functionality}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
