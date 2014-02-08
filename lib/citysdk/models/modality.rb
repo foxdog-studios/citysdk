@@ -5,7 +5,7 @@ module CitySDK
     plugin :json_serializer
 
     def serialize(params)
-      { id: id, name: name}
+      { id: id, name: name }
     end # def
   end #class
 end # module
