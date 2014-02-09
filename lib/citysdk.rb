@@ -3,6 +3,8 @@
 require 'set'
 require 'json'
 
+require 'faraday'
+
 require 'rgeo'
 require 'rgeo-geojson'
 
@@ -14,4 +16,5 @@ require_relative 'citysdk/version'
 require_relative 'citysdk/bulk_insert_nodes'
 require_relative 'citysdk/delete_layer'
 require_relative 'citysdk/models/init'
+require_relative 'citysdk/web_service'
 

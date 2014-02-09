@@ -245,11 +245,6 @@ module CitySDK
       return (webservice and webservice.length > 0)
     end
 
-    def self.getWebserviceUrl(id)
-      layer = self.get_layer(id)
-      layer[:webservice]
-    end
-
     def self.getData(id, node_id, data)
       WebService.load(id, node_id, data)
     end
