@@ -17,6 +17,10 @@ module CitySDK
     def self.for_name(name)
       where(name: name).first
     end # def
+
+    def self.get_layers_in_category(category)
+      where(Sequel.like(:category, "#{ category }%"))
+    end # def
   end # class
 
 
