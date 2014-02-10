@@ -121,7 +121,7 @@ module CitySDK
       end
 
       if h[:modalities]
-        h[:modalities] = h[:modalities].map { |m| Modality.NameFromId(m) }
+        h[:modalities] = h[:modalities].map { |m| Modality.name_for_id(m) }
       else
         h.delete(:modalities)
       end
@@ -166,7 +166,7 @@ module CitySDK
 
       if h[:modalities]
         h[:modalities].each { |m|
-          triples << "\t :hasTransportmodality :transportModality_#{Modality.NameFromId(m)} ;"
+          triples << "\t :hasTransportmodality :transportModality_#{Modality.name_for_id(m)} ;"
         }
       end
 

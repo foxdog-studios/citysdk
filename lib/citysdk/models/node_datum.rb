@@ -281,7 +281,7 @@ module CitySDK
         nd.delete(:tags) if nd[:tags].nil?
 
         if nd[:modalities]
-          nd[:modalities] = nd[:modalities].map { |m| Modality.NameFromId(m) }
+          nd[:modalities] = nd[:modalities].map { |m| Modality.name_for_id(m) }
         else
           nd.delete(:modalities)
         end
