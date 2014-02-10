@@ -23,7 +23,7 @@ class SequelUser
   private
 
   def effectively_owns_layer?(layer)
-    layer.owner_id == @id || admin?
+    layer.owner == self || admin?
   end # def
 end # end
 
