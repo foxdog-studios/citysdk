@@ -7,14 +7,6 @@ module CitySDK
 
     plugin :validation_helpers
 
-    # hash = {
-    #   :name => :plop,
-    #   :id => 123,
-    #   'addr1:str'=>'kj',
-    #   'addr1:num'=>1
-    # }
-    #
-
     KEY_SEPARATOR = ':'
 
     def self.atonestedh(a,v,h)
@@ -175,7 +167,6 @@ module CitySDK
     end
 
     def self.turtelizeOneField(cdk_id,nd,field,params)
-
       ret = []
 
       if Layer.isWebservice?(nd[:layer_id]) and !params.has_key?('skip_webservice')
@@ -202,24 +193,10 @@ module CitySDK
       @@prefixes << 'xsd:'
       @@prefixes << 'rdfs:'
 
-      # puts type
-      # if type =~ /^\w+\:/
-      #   puts $0
-      # end
-      #
-      # puts unit
-      # if unit =~ /^\w+\:/
-      #   puts $0
-      # end
-      #
-      # @@prefixes << $1 if type =~ /^\w+\:/
-
-
       lp  = "#{prop}"
       lp += "\n\t :definedOnLayer <layer/#{Layer.nameFromId(nd[:layer_id])}> ;"
       lp += "\n\t rdfs:subPropertyOf :layerProperty ;"
       lp += "\n\t owl:equivalentProperty #{eqpr} ;" if eqpr
-
 
       if desc and desc =~ /\n/
         lp += "\n\t rdfs:description \"\"\"#{desc}\"\"\" ;"
@@ -232,7 +209,6 @@ module CitySDK
       ret << lp
       ret << ""
 
-      # ret << "<#{cdk_id}> a :#{@@node_types[h[:node_type]].capitalize} ;"
       ret << "<#{cdk_id}> a :Node ;"
 
       if type =~ /xsd:anyURI/i
@@ -246,65 +222,7 @@ module CitySDK
       ret << s + " ."
 
       return ret
-    end
-
-    def self.turtelize(cdk_id, h, params)
-      triples = []
-      gdatas = []
-      params[:layerdataproperties] = Set.new if params[:layerdataproperties].nil?
-      base_uri = "#{cdk_id}/"
-      h.each do |nd|
-        gdatas += self.turtelize_one(nd,triples,base_uri,params,cdk_id)
-      end
-      return triples, gdatas
-    end
-
-    def self.serialize(cdk_id, h, params)
-      newh = {}
-      h.each do |nd|
-
-        layer_id = nd[:layer_id]
-
-        name = Layer.nameFromId(layer_id)
-
-        nd.delete(:validity)
-        # rt,vl = Layer.get_validity(layer_id)
-        # if(rt)
-        #   nd.delete(:validity)
-        #   nd[:update_rate] = vl
-        # else
-        #   nd[:validity] = vl if nd[:validity].nil?
-        #   nd[:validity] = [nd[:validity].begin, nd[:validity].end] if nd[:validity]
-        # end
-        # nd.delete(:validity) if nd[:validity].nil?
-
-        nd.delete(:tags) if nd[:tags].nil?
-
-        if nd[:modalities]
-          nd[:modalities] = nd[:modalities].map { |m| Modality.name_for_id(m) }
-        else
-          nd.delete(:modalities)
-        end
-
-        nd.delete(:id)
-        nd.delete(:node_id)
-        nd.delete(:parent_id)
-        nd.delete(:layer_id)
-        nd.delete(:created_at)
-        nd.delete(:updated_at)
-        nd.delete(:node_data_type)
-        nd.delete(:created_at)
-        nd.delete(:updated_at)
-
-        if Layer.isWebservice?(layer_id) and !params.has_key?('skip_webservice')
-          nd[:data] = WebService.load(layer_id, cdk_id, nd[:data])
-        end
-
-        nd[:data] = nest(nd[:data].to_hash)
-        newh[name] = nd
-      end
-      newh
-    end
+    end # def
   end # class
 end # module
 
