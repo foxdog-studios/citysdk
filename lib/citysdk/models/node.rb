@@ -38,58 +38,11 @@ module CitySDK
     end
 
 
-    def self.serializeStart(params,request)
-      case params[:request_format]
-      when 'application/json'
-        @@noderesults = []
-      when 'text/turtle'
-        @@noderesults = []
-        @@prefixes = Set.new
-        @@layers = []
-      end
-    end
 
 
-    def self.prefixes
-      prfs = ["@base <#{::CitySDKAPI::CDK_BASE_URI}#{::CitySDKAPI::Config[:ep_code]}/> ."]
-      prfs << "@prefix : <#{::CitySDKAPI::CDK_BASE_URI}> ."
-      @@prefixes.each do |p|
-        prfs << "@prefix #{p} <#{Prefix.where(:prefix => p).first[:url]}> ."
-      end
-      prfs << ""
-    end
-
-    def self.layerProps(params)
-      pr = []
-      if params[:layerdataproperties]
-        params[:layerdataproperties].each do |p|
-          pr << p
-        end
-        pr << ""
-      end
-      pr
-    end
-
-    def self.serializeEnd(params,request, pagination = {})
-
-      case params[:request_format]
-      when 'application/json'
-        { :status => 'success',
-          :url => request.url
-        }.merge(pagination).merge({
-          :results => @@noderesults
-        }).to_json
-
-      when 'text/turtle'
-        begin
-          return [self.prefixes.join("\n"),self.layerProps(params),@@noderesults.join("\n")].join("\n")
-        rescue Exception => e
-          ::CitySDKAPI::do_abort(500,"Server error (#{e.message}, \n #{e.backtrace.join('\n')}.")
-        end
-      end
 
 
-    end
+
 
 
     def self.serialize(h,params)
