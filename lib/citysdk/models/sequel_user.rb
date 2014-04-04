@@ -6,24 +6,24 @@ class SequelUser
 
   def create_layer?
     true
-  end # end
+  end # def
 
   def retrieve_layer?(layer)
     true
-  end # end
+  end # def
 
   def update_layer?(layer)
     effectively_owns_layer?(layer)
-  end # end
+  end # def
 
   def delete_layer?(layer)
     layer.deletable? && effectively_owns_layer?(layer)
-  end # end
+  end # def
 
   private
 
   def effectively_owns_layer?(layer)
     layer.owner == self || admin?
   end # def
-end # end
+end # class
 

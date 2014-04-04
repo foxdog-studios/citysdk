@@ -275,7 +275,16 @@ module CitySDK
         )
       ).where(layer_id: layer.id).delete
       db[:node_data].multi_insert(node_data)
+      update_layer_minimum_bounding_box(db, layer)
     end # do
+
+    return # nothing
+  end # def
+
+  private
+
+  def self.update_layer_minimum_bounding_box(db, layer)
+    db.fetch('SELECT update_layer_bounds(?);', layer.id)
   end # def
 end # module
 
