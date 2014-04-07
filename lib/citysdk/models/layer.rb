@@ -6,8 +6,8 @@ module CitySDK
     # and cannot be deleted.
     UNDELETABLE_IDS = Set.new([0, 1, 2])
 
-
     many_to_one :owner, class: :SequelUser
+    one_to_many :layer_properties
     one_to_many :node_data
 
     def deletable?
