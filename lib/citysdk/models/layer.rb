@@ -14,6 +14,15 @@ module CitySDK
       !UNDELETABLE_IDS.include?(id)
     end # def
 
+    def root_domain
+      parts = name.split('.')
+      if parts.length == 1
+        nil
+      else
+        parts.first
+      end # if
+    end # def
+
     def self.for_name(name)
       where(name: name).first
     end # def
@@ -42,6 +51,16 @@ module CitySDK
       ]
       validates_unique :name
       validates_format /^\w+(\.\w+)*$/, :name
+
+      domain = root_domain()
+
+      if !owner.site_admin?
+        if domain.nil?
+          errors.add(:domain, 'cannot be empty')
+        elsif !owner.domains.include?(domain)
+          errors.add(:domain, 'user must be a memeber of the domain')
+        end # if
+      end # if
     end
 
     def self.memcache_key(id)
