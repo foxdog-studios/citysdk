@@ -33,7 +33,7 @@ module CitySDK
   end # class
 
 
-  # Stuff the Peter has not looked at.
+  # Stuff Peter has not looked at.
   class Layer < Sequel::Model
     plugin :validation_helpers
     plugin :json_serializer
@@ -91,36 +91,6 @@ module CitySDK
         return true, layer[:update_rate]
       else
         return false, layer[:validity]
-      end
-    end
-
-
-
-    def self.idFromText(p)
-      # Accepts full layer names and layer names
-      # with wildcards after dot layer separators:
-      #    cbs.*
-      case p
-      when Array
-        return p.map do |name| self.idFromText(name) end.flatten.uniq
-      when String
-        layer_names = self.get_layer_names
-        if layer_names
-          if p.include? "*"
-            # wildcards can only be used once, on the end of layer specifier after "." separator
-            if p.length >= 3 and p.scan("*").size == 1 and p.scan(".*").size == 1 and p[-2,2] == ".*"
-              prefix = p[0..(p.index("*") - 1)]
-              return layer_names.select{|k,v| k.start_with? prefix}.values
-            else
-              CitySDKAPI.do_abort(422,"You can only use wildcards in layer names directly after a name separator (e.g. osm.*)")
-            end
-          else
-            return layer_names[p]
-          end
-        else
-          # No layer names available, something went wrong
-          CitySDKAPI.do_abort(500,"Layer cache unavailable")
-        end
       end
     end
 
