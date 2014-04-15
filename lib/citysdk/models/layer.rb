@@ -116,11 +116,6 @@ module CitySDK
     def self.getData(id, node_id, data)
       WebService.load(id, node_id, data)
     end
-
-    def self.getDataTimeout(id)
-      layer = self.get_layer(id)
-      layer["update_rate"] || 3000
-    end
   end # class
 end # module
 
