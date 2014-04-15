@@ -1,10 +1,10 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 class SequelUser
   set_primary_key :id
   one_to_many :layers, class: CitySDK::Layer, key: :owner_id
 
-  def create_layer?
+  def create_layer?()
     true
   end # def
 
@@ -23,7 +23,7 @@ class SequelUser
   private
 
   def effectively_owns_layer?(layer)
-    layer.owner == self || admin?
+    layer.owner == self || admin?()
   end # def
 end # class
 
