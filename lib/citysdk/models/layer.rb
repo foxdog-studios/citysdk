@@ -92,15 +92,6 @@ module CitySDK
       layer = self.get_layer(id)
       layer[:name]
     end
-
-    ##########################################################################################
-    # Real-time/web service layers:
-    ##########################################################################################
-
-    def self.isRealtime?(id)
-      layer = self.get_layer(id)
-      layer[:realtime]
-    end
   end # class
 end # module
 
