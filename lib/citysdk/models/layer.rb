@@ -112,10 +112,6 @@ module CitySDK
 
       return (webservice and webservice.length > 0)
     end
-
-    def self.getData(id, node_id, data)
-      WebService.load(id, node_id, data)
-    end
   end # class
 end # module
 
