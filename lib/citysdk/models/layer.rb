@@ -101,17 +101,6 @@ module CitySDK
       layer = self.get_layer(id)
       layer[:realtime]
     end
-
-    def self.isWebservice?(id)
-      layer = self.get_layer(id)
-
-      webservice = layer[:webservice]
-      if layer[:name] == 'ns'
-        webservice = false
-      end
-
-      return (webservice and webservice.length > 0)
-    end
   end # class
 end # module
 
