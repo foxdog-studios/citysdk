@@ -66,14 +66,6 @@ module CitySDK
     def self.get_layer(id)
       self[id]
     end
-
-    def self.get_layer_names
-      name_to_id_map = {}
-      self.select(:id, :name).each do |layer|
-        name_to_id_map[layer.name] = layer.id
-      end
-      name_to_id_map
-    end
   end # class
 end # module
 
