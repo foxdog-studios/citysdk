@@ -14,13 +14,9 @@ module CitySDK
       !UNDELETABLE_IDS.include?(id)
     end # def
 
-    def root_domain
+    def root_domain()
       parts = name.split('.')
-      if parts.length == 1
-        nil
-      else
-        parts.first
-      end # if
+      return parts.first() if parts.length > 1
     end # def
 
     def self.for_name(name)
@@ -77,15 +73,6 @@ module CitySDK
         name_to_id_map[layer.name] = layer.id
       end
       name_to_id_map
-    end
-
-    def self.get_validity(id)
-      layer = self.get_layer(id)
-      if layer[:realtime]
-        return true, layer[:update_rate]
-      else
-        return false, layer[:validity]
-      end
     end
   end # class
 end # module
