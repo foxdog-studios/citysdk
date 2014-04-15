@@ -79,12 +79,6 @@ module CitySDK
       name_to_id_map
     end
 
-    def self.ensure_layer_cache
-      unless CitySDKAPI.memcache_get(KEY_LAYERS_AVAILABLE)
-        self.getLayerHashes
-      end
-    end
-
     def self.get_validity(id)
       layer = self.get_layer(id)
       if layer[:realtime]
@@ -127,25 +121,6 @@ module CitySDK
       layer = self.get_layer(id)
       layer["update_rate"] || 3000
     end
-
-    ##########################################################################################
-    # Initialize layers hash:
-    ##########################################################################################
-
-    def self.getLayerHashes
-      names = {}
-      CitySDK::Layer.all.each do |l|
-        id = l[:id]
-        name = l[:name]
-        # Save layer data in memcache without expiration
-        key = self.memcache_key(id)
-        CitySDKAPI.memcache_set(key, l.values, 0)
-        names[name] = id
-      end
-
-      CitySDKAPI.memcache_set(KEY_LAYER_NAMES, names, 0)
-      CitySDKAPI.memcache_set(KEY_LAYERS_AVAILABLE, true, 0)
-    end # def
   end # class
 end # module
 
