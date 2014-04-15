@@ -87,11 +87,6 @@ module CitySDK
         return false, layer[:validity]
       end
     end
-
-    def self.nameFromId(id)
-      layer = self.get_layer(id)
-      layer[:name]
-    end
   end # class
 end # module
 
