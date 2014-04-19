@@ -1,6 +1,7 @@
-# encoding: utf-8
+# -*- encoding: utf-8 -*-
 
 require_relative 'category'
+require_relative 'import'
 require_relative 'layer'
 require_relative 'layer_property'
 require_relative 'modality'
