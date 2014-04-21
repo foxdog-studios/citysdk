@@ -220,6 +220,7 @@ module CitySDK
         node_type_id =
           if node_type
             case node_type
+            when 'node'   then 0
             when 'route'  then 1
             when 'ptstop' then 2
             when 'ptline' then 3
